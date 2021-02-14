@@ -13,6 +13,8 @@ This little project aims to:
     4. [Project template][pytemplate]
     5. [Project structuring][structuring]
     6. [hackeRnews][hackeRnews], an R package for getting data from HN
+    7. [Leap year][ly]
+
 
 [hn]: https://news.ycombinator.com/
 [hn2]: https://hackernews.api-docs.io/v0/items/comment
@@ -20,3 +22,4 @@ This little project aims to:
 [pytemplate]: https://realpython.com/python-application-layouts/#command-line-application-layouts
 [structuring]: https://docs.python-guide.org/writing/structure/
 [hackeRnews]: https://cran.r-project.org/web/packages/hackeRnews/vignettes/hackeRnews-specs.html 
+[ly]: https://www.programiz.com/python-programming/examples/leap-year

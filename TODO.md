@@ -1,0 +1,11 @@
+- [x] parse dates
+    - [x] test
+- [ ] follow link "More" as needed
+- [ ] limit comments to scrape (cli)
+- [ ] create database
+    - [ ] test
+    - [ ] update database
+        - [ ] test
+    - [ ] trigger alarm
+- [ ] dockerize
+- [ ] make a package
