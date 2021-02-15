@@ -58,15 +58,17 @@ CONCURRENT_REQUESTS_PER_DOMAIN = 30
 # Enable or disable extensions
 # See https://docs.scrapy.org/en/latest/topics/extensions.html
 EXTENSIONS = {
+   'scrapy.extensions.logstats.LogStats': 200,
    'scrapy.extensions.closespider.CloseSpider': 300,
 }
-CLOSESPIDER_PAGECOUNT = 3
-
+CLOSESPIDER_TIMEOUT = 0
+CLOSESPIDER_ITEMCOUNT = 0
+CLOSESPIDER_PAGECOUNT = 0
 
 # Configure item pipelines
 # See https://docs.scrapy.org/en/latest/topics/item-pipeline.html
 ITEM_PIPELINES = {
-   'tutorial.pipelines.DumpCommentPipeline': 300,
+   'tutorial.pipelines.MongoPipeline': 300,
 }
 
 # Enable and configure the AutoThrottle extension (disabled by default)
@@ -91,3 +93,10 @@ ITEM_PIPELINES = {
 #HTTPCACHE_STORAGE = 'scrapy.extensions.httpcache.FilesystemCacheStorage'
 
 # LOG_STDOUT = False
+
+
+MONGO_HOST = 'localhost'
+MONGO_PORT = 27017
+MONGO_DB = 'hackernews'
+MONGO_USER = 'root'
+MONGO_PASS = 'example'

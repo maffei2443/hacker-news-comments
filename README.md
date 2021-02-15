@@ -36,7 +36,8 @@ Change current directory to `tutorial`
     8. [xpath exact][xpath-e]
     9. [xpath and css equivalences cheat sheet][cheatsheet]
     10. [xpath cheatsheed][xpsheet]
-
+    11. [mongodb vs sql][no-vs-sql]
+    12. [pymongo docs][pymongo]
 
 [hn]: https://news.ycombinator.com/
 [hn2]: https://hackernews.api-docs.io/v0/items/comment
@@ -48,4 +49,8 @@ Change current directory to `tutorial`
 [xpath-e]: https://bangladroid.wordpress.com/2018/05/24/xpath-how-to-locate-a-node-using-exact-text-match/
 [cheatsheet]: https://en.wikibooks.org/wiki/XPath/CSS_Equivalents
 [xpsheet]: https://devhints.io/xpath
+[no-vs-sql]: https://www.xplenty.com/blog/mongodb-vs-mysql/
+[pymongo]: https://pymongo.readthedocs.io/en/stable/tutorial.html
+
+
 

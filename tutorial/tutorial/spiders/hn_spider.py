@@ -32,15 +32,15 @@ class HNSpyder(scrapy.Spider):
             order = int(id_)
             item = dict(
                 text=text,
-                parent=parent_id,
+                parent=int(parent_id),
                 by=by,
-                id=id_,
+                id=int(id_),
                 date=date,
             )
+            yield item
             # print(item)
             ids.append(order)
         next_url = response.urljoin(response.css('a.morelink').attrib['href'])
         print("NEXT_URL: {}".format(next_url))
         
         yield scrapy.Request(url=next_url, callback=self.parse)
-        return lis
