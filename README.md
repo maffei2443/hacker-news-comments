@@ -14,6 +14,8 @@ This little project aims to:
     5. [Project structuring][structuring]
     6. [hackeRnews][hackeRnews], an R package for getting data from HN
     7. [Leap year][ly]
+    8. [xpath exact][xpath-e]
+    9. [xpath and css equivalences cheat sheet][cheatsheet]
 
 
 [hn]: https://news.ycombinator.com/
@@ -23,3 +25,5 @@ This little project aims to:
 [structuring]: https://docs.python-guide.org/writing/structure/
 [hackeRnews]: https://cran.r-project.org/web/packages/hackeRnews/vignettes/hackeRnews-specs.html 
 [ly]: https://www.programiz.com/python-programming/examples/leap-year
+[xpath-e]: https://bangladroid.wordpress.com/2018/05/24/xpath-how-to-locate-a-node-using-exact-text-match/
+[cheatsheet]: https://en.wikibooks.org/wiki/XPath/CSS_Equivalents

@@ -38,21 +38,24 @@ class ParseDateApproximate(object):
         )
 
     @classmethod
-    def parse(cls, s: str, today=dtime.datetime):
-        """Parses the date at different granularity levels.
+    def parse(cls, s: str, today=dtime.datetime, debug=False):
+        """Parses the date at most on day-level.
 
         The granularity depends on the information received. For example:
 
-        - "0 minutes ago": is this case its possible to know (considering
+        - "3 (minutes|hours) ago": is this case its possible to know (considering
             syncronous processing) the exact minute at which an item was
-            created
+            created. However as this is not the case for old comments 
+            the majority of time
         - "1 month ago": this case show the unavoidable limited information
             that can be appear
         - "on Feb 13, 2020": this situation happens for old comments.
         WARNING:
-            there may be some light innacuracy when time passed is defined
+            There may be some light innacuracy when time passed is defined
             in terms of "months"/"years" ago since the exact amount of days
-            passed is not available.
+            passed is not available. Also, newer comments may have a one-day
+            innacuracy.
+
             
         Args:
             s (str): string containing the date
@@ -62,7 +65,8 @@ class ParseDateApproximate(object):
         """
         s = s.lower()
         m, d, y = None, None, None
-        print("TUDAY:", today)
+        if debug:
+            print(f"[{__name__}.ParseDateApproximate.parse] TODAY:", today)
         if 'ago' in s:
             date = None
             delta = int(re.search(r'([0-9]+)', s).group(1))
@@ -81,12 +85,16 @@ class ParseDateApproximate(object):
             elif 'year' in s:
                 date = today
                 m, d, y = date.month, date.day, date.year - delta
+            elif 'minute' in s or 'hour' in s:
+                date = today
+                m, d, y = date.month, date.day, date.year
             else:
                 raise ValueError("Innapropriate value of s: {}".format(s))
         else:  # easy case
             m, d, y = re.search(cls.regex_date, s, re.IGNORECASE).groups()
             m, d, y = cls.months[m], int(d), int(y)
         date = dtime.datetime(month=m, day=d, year=y)
-        print('WAS:', date, end='\n\n')
+        if debug:
+            print(f'[{__name__}.ParseDateApproximate.parse] WAS:', date, end='\n\n')
         return date
 
