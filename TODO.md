@@ -1,14 +1,14 @@
 - [x] parse dates
     - [x] test
-- [ ] extract required information from comment
+- [x] extract required information from comment
     - [x] text
     - [x] parent
     - [x] by
     - [x] id
     - [x] data
-- [ ] follow link "More" as needed
-- [ ] limit comments to scrape (cli)
-- [ ] create database
+- [x] follow link "More" as needed
+  - [x] limit how many pages to be crawled through CLI
+- [ ] create database (pipeline)
     - [ ] test
     - [ ] update database
         - [ ] test
