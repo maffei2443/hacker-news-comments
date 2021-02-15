@@ -97,6 +97,7 @@ ITEM_PIPELINES = {
 
 MONGO_HOST = 'localhost'
 MONGO_PORT = 27017
-MONGO_DB = 'hackernews'
 MONGO_USER = 'root'
 MONGO_PASS = 'example'
+MONGO_DB = 'hackernews'
+MONGO_COLLECTION = 'comments'

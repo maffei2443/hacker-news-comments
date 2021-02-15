@@ -2,15 +2,25 @@ import datetime as dt
 import scrapy
 
 from tutorial.spiders.helper import ParseDateApproximate
+import pymongo
 
 class HNSpyder(scrapy.Spider):
+    
     name = 'comments'
 
+    def __init__(self, name=None, **kwargs):
+        super(HNSpyder, self).__init__(name=name, **kwargs)
+        # Will be set by `MongoPipeline`
+        self.min_id = None
 
-    start_urls = [
-        'https://news.ycombinator.com/newcomments'
-    ]
-  
+
+    def start_requests(self):
+        urls = ['https://news.ycombinator.com/newcomments']
+
+        for url in urls:
+            yield scrapy.Request(url, callback=self.parse)
+
+
 
     def parse(self, response):
         selectors = response.css('tr.athing')
@@ -21,7 +31,7 @@ class HNSpyder(scrapy.Spider):
             comm_selec = selec.css('span[class="commtext c00"]')
             date_selec = selec.css('span[class="age"] a').xpath('text()')
 
-            id_ = selec.xpath('@id').get()
+            id_ = int(selec.xpath('@id').get())
             text = ''.join(comm_selec.xpath('text()').getall())
             parent_id = selec.css('span.par a').xpath('@href').re_first(r'\d+')
             by = selec.css('a.hnuser').xpath('@href').re_first(r'id=(.+)')
@@ -29,18 +39,18 @@ class HNSpyder(scrapy.Spider):
             # Actually the truly information about time is not available,
             # but an `order` can be obtained exploiting the fact
             # `id` only rises through time.
-            order = int(id_)
+
             item = dict(
                 text=text,
                 parent=int(parent_id),
                 by=by,
-                id=int(id_),
+                id=id_,
                 date=date,
             )
-            yield item
-            # print(item)
-            ids.append(order)
-        next_url = response.urljoin(response.css('a.morelink').attrib['href'])
-        print("NEXT_URL: {}".format(next_url))
-        
-        yield scrapy.Request(url=next_url, callback=self.parse)
+            yield item        
+            ids.append(id_)
+
+        if self.min_id > min(ids):
+            next_url = response.urljoin(response.css('a.morelink').attrib['href'])
+            print("NEXT_URL: {}".format(next_url))
+            yield scrapy.Request(url=next_url, callback=self.parse)

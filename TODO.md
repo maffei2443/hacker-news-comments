@@ -8,9 +8,10 @@
     - [x] data
 - [x] follow link "More" as needed
   - [x] limit how many pages to be crawled through CLI
-- [ ] create database (pipeline)
-    - [ ] test
-    - [ ] update database
+- [x] create database (pipeline)
+    - [ ] test (?)
+    - [x] update database
+    - [x] conditionally stop updating (id < biggest already present)
         - [ ] test
     - [ ] trigger alarm
 - [ ] dockerize
