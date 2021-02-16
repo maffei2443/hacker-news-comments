@@ -1,3 +1,5 @@
+import os
+
 # Scrapy settings for tutorial project
 #
 # For simplicity, this file contains only settings considered important or
@@ -6,8 +8,6 @@
 #     https://docs.scrapy.org/en/latest/topics/settings.html
 #     https://docs.scrapy.org/en/latest/topics/downloader-middleware.html
 #     https://docs.scrapy.org/en/latest/topics/spider-middleware.html
-
-MAIL_PORT = 1000
 
 
 BOT_NAME = 'hn-comments-bot'
@@ -64,9 +64,9 @@ EXTENSIONS = {
    'scrapy.extensions.logstats.LogStats': 200,
    'scrapy.extensions.closespider.CloseSpider': 300,
 }
-CLOSESPIDER_TIMEOUT = 0
-CLOSESPIDER_ITEMCOUNT = 0
-CLOSESPIDER_PAGECOUNT = 0
+CLOSESPIDER_TIMEOUT = os.getenv('CLOSESPIDER_TIMEOUT', 0)
+CLOSESPIDER_ITEMCOUNT = os.getenv('CLOSESPIDER_ITEMCOUNT', 0)
+CLOSESPIDER_PAGECOUNT = os.getenv('CLOSESPIDER_PAGECOUNT', 2)
 
 # Configure item pipelines
 # See https://docs.scrapy.org/en/latest/topics/item-pipeline.html

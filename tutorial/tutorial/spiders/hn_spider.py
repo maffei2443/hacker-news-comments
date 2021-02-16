@@ -19,7 +19,6 @@ class HNSpyder(scrapy.Spider):
 
     def start_requests(self):
         urls = ['https://news.ycombinator.com/newcomments']
-
         for url in urls:
             yield scrapy.Request(url, callback=self.parse)
 

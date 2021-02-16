@@ -57,16 +57,16 @@ class MongoPipeline(DataBasePipe):
         self.collection = self.client[
             self.mongo_config['db']][self.mongo_config['collection']
         ]
-        # Now sets `spider.max_id` to be the lower already seem `id`.
+        # Now sets `spider.min_required_id` to be the lower already seem `id`.
         # This works because HN  items `id` only increase monotonically
         # over time.
         if not self.collection.estimated_document_count():
             self.collection.create_index([('id', pymongo.ASCENDING)], unique=True)
-            spider.max_id = 0
+            spider.min_required_id = 0
         else:
             cursor = self.collection.find().sort('id', pymongo.DESCENDING).limit(1)
-            spider.max_id = list(cursor)[0]['id']
-        print("MIN_ALLOWED_ID:", spider.max_id)
+            spider.min_required_id = list(cursor)[0]['id']
+        print("MIN_REQUIRED_ID:", spider.min_required_id)
 
 
     def close_spider(self, spider):
@@ -74,7 +74,7 @@ class MongoPipeline(DataBasePipe):
 
 
     def process_item(self, item, spider):
-        if item['id'] > spider.max_id:
+        if item['id'] > spider.min_required_id:
             self.collection.insert_one(item)
         else:
             pass
