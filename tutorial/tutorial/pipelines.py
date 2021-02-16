@@ -5,13 +5,11 @@
 
 
 # useful for handling different item types with a single interface
+
+import re
 import pymongo
-from itemadapter import ItemAdapter
-from scrapy import exceptions
 
-class MongoPipeline:
-
-
+class DataBasePipe:
     def __init__(self, mongo_config):
         self.mongo_config = mongo_config
 
@@ -31,6 +29,7 @@ class MongoPipeline:
 
     def open_spider(self, spider):
         # Connect to MongoDB database
+        print("OPEN_SPIDER::DataBasePipe")
         self.client = pymongo.MongoClient(
             host=self.mongo_config['host'],
             port=self.mongo_config['port'],
@@ -41,25 +40,53 @@ class MongoPipeline:
         self.collection = self.client[
             self.mongo_config['db']][self.mongo_config['collection']
         ]
-        # Now sets `spider.min_id` to be the lower already seem `id`.
+
+
+class MongoPipeline(DataBasePipe):
+
+    def open_spider(self, spider):
+        # Connect to MongoDB database
+        print("OPEN_SPIDER::MongoPipeline")
+        self.client = pymongo.MongoClient(
+            host=self.mongo_config['host'],
+            port=self.mongo_config['port'],
+            username=self.mongo_config['username'],
+            password=self.mongo_config['password'],
+        )
+        # Lazyly create database and collection
+        self.collection = self.client[
+            self.mongo_config['db']][self.mongo_config['collection']
+        ]
+        # Now sets `spider.max_id` to be the lower already seem `id`.
         # This works because HN  items `id` only increase monotonically
         # over time.
         if not self.collection.estimated_document_count():
             self.collection.create_index([('id', pymongo.ASCENDING)], unique=True)
-            spider.min_id = 0
+            spider.max_id = 0
         else:
             cursor = self.collection.find().sort('id', pymongo.DESCENDING).limit(1)
-            spider.min_id = list(cursor)[0]['id']
-        print("MIN_REQUIRED_ID:", spider.min_id)
+            spider.max_id = list(cursor)[0]['id']
+        print("MIN_ALLOWED_ID:", spider.max_id)
 
 
     def close_spider(self, spider):
         self.client.close()
 
+
     def process_item(self, item, spider):
-        if item['id'] > spider.min_id:
+        if item['id'] > spider.max_id:
             self.collection.insert_one(item)
         else:
             pass
         return item
 
+
+class AlertPipeline(DataBasePipe):
+    """Pipeline for (conceptually) trigger an alarm when 'linux' word is present on item['text'].
+    """
+    
+
+    def process_item(self, item, spider):
+        if 'linux' in re.sub(r'\s+', '', item['text']):
+            self.client[self.mongo_config['db']].linux_ids.insert_one({'id': item['id']})
+        return item

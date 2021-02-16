@@ -7,6 +7,9 @@
 #     https://docs.scrapy.org/en/latest/topics/downloader-middleware.html
 #     https://docs.scrapy.org/en/latest/topics/spider-middleware.html
 
+MAIL_PORT = 1000
+
+
 BOT_NAME = 'hn-comments-bot'
 
 SPIDER_MODULES = ['tutorial.spiders']
@@ -69,6 +72,7 @@ CLOSESPIDER_PAGECOUNT = 0
 # See https://docs.scrapy.org/en/latest/topics/item-pipeline.html
 ITEM_PIPELINES = {
    'tutorial.pipelines.MongoPipeline': 300,
+   'tutorial.pipelines.AlertPipeline': 500,
 }
 
 # Enable and configure the AutoThrottle extension (disabled by default)

@@ -4,6 +4,7 @@ import scrapy
 from tutorial.spiders.helper import ParseDateApproximate
 import pymongo
 
+
 class HNSpyder(scrapy.Spider):
     
     name = 'comments'
@@ -11,7 +12,9 @@ class HNSpyder(scrapy.Spider):
     def __init__(self, name=None, **kwargs):
         super(HNSpyder, self).__init__(name=name, **kwargs)
         # Will be set by `MongoPipeline`
-        self.min_id = None
+        self.min_required_id = None
+        self.mail = None
+        self.debug = kwargs.get('debug', False)
 
 
     def start_requests(self):
@@ -49,8 +52,10 @@ class HNSpyder(scrapy.Spider):
             )
             yield item        
             ids.append(id_)
-
-        if self.min_id > min(ids):
+        if self.debug:
+            print("min_required_id < min(ids) ? {} < {} ".format(self.min_required_id, min(ids)))
+            input()
+        if self.min_required_id < min(ids):
             next_url = response.urljoin(response.css('a.morelink').attrib['href'])
             print("NEXT_URL: {}".format(next_url))
             yield scrapy.Request(url=next_url, callback=self.parse)

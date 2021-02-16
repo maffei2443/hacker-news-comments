@@ -13,6 +13,10 @@
     - [x] update database
     - [x] conditionally stop updating (id < biggest already present)
         - [ ] test
-    - [ ] trigger alarm
+    - [x] trigger alarm
+        - [x] salvar IDs desses comentários em coleção (linux_ids)
+- [x] schedule run
+    - NOTE: requires `cron`
 - [ ] dockerize
 - [ ] make a package
+

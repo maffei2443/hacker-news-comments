@@ -38,6 +38,9 @@ Change current directory to `tutorial`
     10. [xpath cheatsheed][xpsheet]
     11. [mongodb vs sql][no-vs-sql]
     12. [pymongo docs][pymongo]
+    13. [Scrapy architecture overview][scrapy-arch]
+    14. [Scrapy+docker][scrapy-docker]
+
 
 [hn]: https://news.ycombinator.com/
 [hn2]: https://hackernews.api-docs.io/v0/items/comment
@@ -51,6 +54,8 @@ Change current directory to `tutorial`
 [xpsheet]: https://devhints.io/xpath
 [no-vs-sql]: https://www.xplenty.com/blog/mongodb-vs-mysql/
 [pymongo]: https://pymongo.readthedocs.io/en/stable/tutorial.html
+[scrapy-arch]: https://docs.scrapy.org/en/latest/topics/architecture.html
+[scrapy-docker]: https://shinesolutions.com/2018/09/13/running-a-web-crawler-in-a-docker-container/
 
 
 
