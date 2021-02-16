@@ -1,0 +1,7 @@
+db.sqlite
+*.html
+TODO.md
+setup.py
+server.db
+*.log
+tests/

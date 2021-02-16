@@ -99,7 +99,7 @@ ITEM_PIPELINES = {
 # LOG_STDOUT = False
 
 
-MONGO_HOST = 'localhost'
+MONGO_HOST = os.getenv('MONGO_HOST', 'localhost')
 MONGO_PORT = 27017
 MONGO_USER = 'root'
 MONGO_PASS = 'example'
