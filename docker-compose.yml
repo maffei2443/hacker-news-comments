@@ -28,7 +28,5 @@ services:
     privileged: true
     links:
       - mongo
-    ports:
-      - 5000:5000
 
 

@@ -42,6 +42,9 @@ Change current directory to `tutorial`
     14. [Scrapy+docker][scrapy-docker]
     15. [Docker docs][docdoc]
     16. [docker-cron][dcron]
+    17. [scrapyd][scpd]
+    18. [scrapy-client][sc-client]
+    19. [scrapyd-client installation][sc-client-install]
 
 [hn]: https://news.ycombinator.com/
 [hn2]: https://hackernews.api-docs.io/v0/items/comment
@@ -58,5 +61,9 @@ Change current directory to `tutorial`
 [scrapy-arch]: https://docs.scrapy.org/en/latest/topics/architecture.html
 [scrapy-docker]: https://shinesolutions.com/2018/09/13/running-a-web-crawler-in-a-docker-container/
 [docdoc]: https://docs.docker.com/
-[dcron]: https://github.com/Ekito/docker-cron
+[dcron]: https://github.com/cheyer
+[scpd]: https://github.com/scrapy/scrapyd
+[sc-client]: https://github.com/scrapy/scrapyd-client
+[sc-client-install]: https://stackoverflow.com/questions/45750739/scrapyd-client-command-not-found
+
 

@@ -18,7 +18,7 @@
         - [x] salvar IDs desses comentários em coleção (linux_ids)
 - [x] schedule run
     - NOTE: requires `cron`
-    - [ ] schedule run on Docker
+    - [x] schedule run on Docker
 - [x] dockerize
 - [ ] make a package
 

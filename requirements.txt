@@ -1,3 +1,5 @@
 Scrapy==2.4.1
 pymongo==3.11.2
 beautifulsoup4==4.9.1
+scrapyd==1.2.1
+git+https://github.com/scrapy/scrapyd-client@4d839039ccd7b84997ba3fd533df313701b5ab68

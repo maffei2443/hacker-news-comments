@@ -1,5 +1,4 @@
 import os
-
 # Scrapy settings for tutorial project
 #
 # For simplicity, this file contains only settings considered important or
