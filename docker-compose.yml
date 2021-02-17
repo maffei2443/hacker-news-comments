@@ -25,6 +25,7 @@ services:
     restart: always
     environment:
       MONGO_HOST: mongo
+    privileged: true
     links:
       - mongo
     ports:

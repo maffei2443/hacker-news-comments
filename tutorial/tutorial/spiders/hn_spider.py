@@ -26,15 +26,17 @@ class HNSpyder(scrapy.Spider):
 
 
     def parse(self, response):
+        if self.debug:
+            print("min_required_id ::: ", self.min_required_id)
         selectors = response.css('tr.athing')
         ids = []
         lis = []
         today = dt.date.today()
         for selec in selectors:
-            comm_selec = selec.css('span[class="commtext c00"]')
+            comm_selec = selec.css('span[class*="commtext"]')
             date_selec = selec.css('span[class="age"] a').xpath('text()')
             id_ = int(selec.xpath('@id').get())
-            text = BeautifulSoup(comm_selec.get()).text
+            text = BeautifulSoup(comm_selec.get(), features="lxml").text
             parent_id = selec.css('span.par a').xpath('@href').re_first(r'\d+')
             by = selec.css('a.hnuser').xpath('@href').re_first(r'id=(.+)')
             date = ParseDateApproximate.parse(date_selec.get(), today=today)

@@ -41,6 +41,7 @@ Change current directory to `tutorial`
     13. [Scrapy architecture overview][scrapy-arch]
     14. [Scrapy+docker][scrapy-docker]
     15. [Docker docs][docdoc]
+    16. [docker-cron][dcron]
 
 [hn]: https://news.ycombinator.com/
 [hn2]: https://hackernews.api-docs.io/v0/items/comment
@@ -57,5 +58,5 @@ Change current directory to `tutorial`
 [scrapy-arch]: https://docs.scrapy.org/en/latest/topics/architecture.html
 [scrapy-docker]: https://shinesolutions.com/2018/09/13/running-a-web-crawler-in-a-docker-container/
 [docdoc]: https://docs.docker.com/
-
+[dcron]: https://github.com/Ekito/docker-cron
 
