@@ -1,65 +1,66 @@
 ## hacker-news-comments
 This little project aims to:
 
-    1. get all comments from [hacker news][hn] website;
-    2. Update such base from time to time;
-    3. Trigger a signal once some custom event occurs.
-        - Currently, the only custom event is the occurence of specific words.
+1. get all comments from [hacker news][hn] website;
+2. Update such base from time to time;
+3. Trigger a signal once some custom event occurs.
+    - Currently, the only custom event is the occurence of specific words.
 
 ### How to use (assuming `sudo` access)
 
 ##### 1. Install dependencies
 Change current directory to `tutorial`
-    ```sh
-    pip install -r requirements.txt
-    ```
+```sh
+pip install -r requirements.txt
+```
 
 
 ##### 2. Change into directory and run
-    ```sh
-    cd tutorial
+```sh
+cd tutorial
+  
+# Crawl how much pages you prefer
+scrapy crawl comments
     
-    # Crawl how much pages you prefer (default is 3)
-    scrapy crawl comments
-    
-    # For download all comments not yet downloaded since the 
-    # last downloaded comment
-    scrapy crawl comments -s CLOSESPIDER_PAGECOUNT=0
-    ```
+# For download all comments not yet downloaded since the 
+# last downloaded comment
+scrapy crawl comments -s CLOSESPIDER_PAGECOUNT=0
+```
 
 #### 3. \[Optional\] Run mongodb on docker
-    ```sh
-        docker-compose -f local-compose.yml up
-    ```
+```sh
+docker-compose -f local-compose.yml up
+```
 
 Alternatively you can configure your own [mongodb][mongodb] server. Check **tutorial/tutorial/settings.py**
 for eventual envirnoment variables that must be set.
 
 #### 10. \[Optional\] Run tests
-    1. Install dependencies
-        ```sh
-            pip install pytest==6.0.2
-        ```
-    2. Run tests
-        ```sh
-            pytest
-        ```
+1. Install dependencies
+    ```sh
+    pip install pytest==6.0.2
+    ```
+2. Run tests
+    ```sh
+    pytest
+    ```
 
 
 ### How to run on [Docker][docker]
-    1. Install [docker][get-docker]
-    2. Install [docker-compose][get-compose]
-    3. Run the application.
+
+1. Install [docker][get-docker]
+2. Install [docker-compose][get-compose]
+3. Run the application.
+```sh
+    docker-compose up -d
+```
+4. NOTE: if some modification is done on the source and you want to update
+    the containerzed application then the follow steps are required:
     ```sh
-        docker-compose up -d
+        docker-compose down   # to stop the application
+        docker-compose build  # rebuild the image
+        docker-compose up     # start application again
     ```
-    4. NOTE: if some modification is done on the source and you want to update
-        the containerzed application then the follow steps are required:
-        ```sh
-            docker-compose down   # to stop the application
-            docker-compose build  # rebuild the image
-            docker-compose up     # start application again
-        ```
 
 
 ### Limitations (a.k.a TODO)
@@ -82,9 +83,9 @@ for eventual envirnoment variables that must be set.
 2. The database name is defined on the *settings.py* file.
 
 
-###### References
+### References
 
-1. [Hacker news API (github)][hn]
+1. [Hacker news API (github)][hn-api]
 2. [Hacker news API docs][hn2]
 3. [DODFMiner][dodfminer] (for structuring the tests)
 4. [Project template][pytemplate]
@@ -104,6 +105,7 @@ for eventual envirnoment variables that must be set.
 18. [scrapy-client][sc-client]
 19. [scrapyd-client installation][sc-client-install]
 
+[hn-api]: https://github.com/HackerNews/API
 [hn]: https://news.ycombinator.com/
 [hn2]: https://hackernews.api-docs.io/v0/items/comment
 [dodfminer]: https://github.com/UnB-KnEDLe/DODFMiner
