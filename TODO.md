@@ -21,4 +21,6 @@
     - [x] schedule run on Docker
 - [x] dockerize
 - [ ] make a package
-
+- [ ] limit comments by date
+- [ ] tutorial for scheduling locally
+- [x] manually specify `MIN_REQUIRED_ID` value

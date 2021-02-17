@@ -19,15 +19,3 @@ services:
     environment:
       ME_CONFIG_MONGODB_ADMINUSERNAME: root
       ME_CONFIG_MONGODB_ADMINPASSWORD: example
-
-  hn_comments_crawler:
-    build: .
-    restart: always
-    environment:
-      MONGO_HOST: mongo
-      MIN_REQUIRED_ID: 1000
-    privileged: true
-    links:
-      - mongo
-
-

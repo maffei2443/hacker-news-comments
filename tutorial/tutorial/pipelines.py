@@ -6,6 +6,7 @@
 
 # useful for handling different item types with a single interface
 
+import os
 import re
 import pymongo
 
@@ -66,6 +67,11 @@ class MongoPipeline(DataBasePipe):
         else:
             cursor = self.collection.find().sort('id', pymongo.DESCENDING).limit(1)
             spider.min_required_id = list(cursor)[0]['id']
+        if int(os.getenv('MIN_REQUIRED_ID', -1)) > 0:
+            spider.min_required_id = int(os.getenv('MIN_REQUIRED_ID'))
+            print("MIN_REQUIRED_ID manually specified.")
+        else:
+            print("MIN_REQUIRED_ID get from database.")
         print("MIN_REQUIRED_ID:", spider.min_required_id)
 
 
@@ -75,7 +81,10 @@ class MongoPipeline(DataBasePipe):
 
     def process_item(self, item, spider):
         if item['id'] > spider.min_required_id:
-            self.collection.insert_one(item)
+            try:
+                self.collection.insert_one(item)
+            except:
+                print("[DEBUG-comment] DUPLICATED ID:", item['id'])
         else:
             pass
         return item
@@ -83,10 +92,15 @@ class MongoPipeline(DataBasePipe):
 
 class AlertPipeline(DataBasePipe):
     """Pipeline for (conceptually) trigger an alarm when 'linux' word is present on item['text'].
+    Actually the "alarm" consists on saving the comment **id** on a **linux_ids** collection.
+    
     """
     
 
     def process_item(self, item, spider):
         if 'linux' in re.sub(r'\s+', '', item['text']):
-            self.client[self.mongo_config['db']].linux_ids.insert_one({'id': item['id']})
+            try:
+                self.client[self.mongo_config['db']].linux_ids.insert_one({'id': item['id']})
+            except:
+                print("[DEBUG-comment-linux] DUPLICATED ID:", item['id'])
         return item
