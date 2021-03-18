@@ -1,3 +1,5 @@
+This project aims to crawl (possibly all) comments of [hacker-news](https://news.ycombinator.com/newcomments) and dump they into a local [*MongoDatabase*](https://www.mongodb.com/).
+
 ## hacker-news-comments
 This little project aims to:
 
